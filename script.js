@@ -1,4 +1,34 @@
 document.addEventListener('DOMContentLoaded', function() {
+  // Функция для создания волнового эффекта
+  function createWaveEffect(event) {
+    const rect = this.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    
+    const wave = this.querySelector('.wave');
+    if (!wave) return;
+    
+    wave.style.left = `${x}px`;
+    wave.style.top = `${y}px`;
+    
+    wave.classList.remove('active');
+    void wave.offsetWidth; // Trigger reflow
+    wave.classList.add('active');
+  }
+
+  // Применяем эффект к элементам
+  document.querySelectorAll('#photoUpload, button').forEach(button => {
+    button.addEventListener('click', function(e) {
+      createWaveEffect.call(this, e);
+      
+      // Для кнопок - предотвращаем повторное срабатывание
+      if (this.tagName === 'BUTTON') {
+        const wave = this.querySelector('.wave');
+        if (wave) wave.classList.remove('active');
+      }
+    });
+  });
+
   // Photo upload
   const photoUpload = document.getElementById('photoUpload');
   const photoInput = document.getElementById('photoInput');
