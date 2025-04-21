@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interactive Profile</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="profile-container">
+    <div class="profile-header">
+      <div class="profile-photo" id="photoUpload">
+        <img id="profileImage" src="https://via.placeholder.com/150" alt="Profile Photo">
+        <div class="upload-overlay">
+          <i class="fas fa-camera"></i>
+        </div>
+        <input type="file" id="photoInput" accept="image/*" style="display: none;">
+      </div>
+      <div class="profile-info">
+        <h1 contenteditable="true">John Doe</h1>
+        <p contenteditable="true">Web Developer & Designer</p>
+      </div>
+    </div>
+
+    <div class="profile-grid">
+      <!-- Языки -->
+      <div class="profile-card languages-card">
+        <h2><i class="fas fa-language"></i> Languages</h2>
+        <div class="languages-container" id="languagesContainer">
+          <div class="language-item" contenteditable="true">
+            <span class="flag">🇬🇧</span> English <span class="level">(Fluent)</span>
+          </div>
+          <div class="language-item" contenteditable="true">
+            <span class="flag">🇪🇸</span> Spanish <span class="level">(Intermediate)</span>
+          </div>
+          <button class="add-btn" id="addLanguage"><i class="fas fa-plus"></i> Add</button>
+        </div>
+      </div>
+
+      <!-- Инструменты -->
+      <div class="profile-card tools-card">
+        <h2><i class="fas fa-tools"></i> Tools</h2>
+        <div class="tags-container" id="toolsContainer">
+          <span class="tag" contenteditable="true">VS Code</span>
+          <span class="tag" contenteditable="true">Figma</span>
+          <span class="tag" contenteditable="true">Photoshop</span>
+          <button class="add-btn" id="addTool"><i class="fas fa-plus"></i> Add</button>
+        </div>
+      </div>
+
+      <!-- Образование -->
+      <div class="profile-card education-card">
+        <h2><i class="fas fa-graduation-cap"></i> Education</h2>
+        <div class="education-vertical" id="educationContainer">
+          <div class="edu-item" contenteditable="true">
+            <div class="edu-header">
+              <h3>Master of Computer Science</h3>
+              <div class="edu-date">09/2018 - 06/2022</div>
+            </div>
+            <div class="edu-place">University of Technology, New York</div>
+            <div class="edu-desc">Specialized in Machine Learning and Data Analysis. GPA: 3.9/4.0</div>
+          </div>
+          
+          <div class="edu-item" contenteditable="true">
+            <div class="edu-header">
+              <h3>Bachelor of Design</h3>
+              <div class="edu-date">09/2014 - 06/2018</div>
+            </div>
+            <div class="edu-place">Art & Design Institute, Chicago</div>
+            <div class="edu-desc">Focused on UI/UX principles with honors. Thesis on Accessibility in Design.</div>
+          </div>
+          
+          <button class="add-btn" id="addEducation"><i class="fas fa-plus"></i> Add Education</button>
+        </div>
+      </div>
+
+      <!-- Интересы -->
+      <div class="profile-card interests-card">
+        <h2><i class="fas fa-heart"></i> Interests</h2>
+        <div class="tags-container" id="interestsContainer">
+          <span class="tag" contenteditable="true">Web Development</span>
+          <span class="tag" contenteditable="true">UI/UX</span>
+          <span class="tag" contenteditable="true">Photography</span>
+          <button class="add-btn" id="addInterest"><i class="fas fa-plus"></i> Add</button>
+        </div>
+      </div>
+
+      <!-- Контакты -->
+      <div class="profile-card contacts-card">
+        <h2><i class="fas fa-envelope"></i> Contacts</h2>
+        <div class="contacts-container">
+          <div class="contact-item" contenteditable="true">
+            <i class="fas fa-envelope"></i> john.doe@example.com
+          </div>
+          <div class="contact-item" contenteditable="true">
+            <i class="fas fa-phone"></i> (123) 456-7890
+          </div>
+          <div class="contact-item" contenteditable="true">
+            <i class="fas fa-globe"></i> johndoe.dev
+          </div>
+          <div class="social-links">
+            <i class="fab fa-github" contenteditable="true"></i>
+            <i class="fab fa-linkedin" contenteditable="true"></i>
+            <i class="fab fa-twitter" contenteditable="true"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="downloadBtn"><i class="fas fa-download"></i> Download PDF</button>
+      <button id="toggleTheme"><i class="fas fa-moon"></i> Toggle Theme</button>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
