@@ -8,15 +8,6 @@
   --border-radius: 12px;
 }
 
-[data-theme="dark"] {
-  --primary-color: #7b83ff;
-  --secondary-color: #646cff;
-  --text-color: #f5f5f5;
-  --bg-color: #1a1a1a;
-  --card-bg: #2a2a2a;
-  --shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-}
-
 body {
   margin: 0;
   padding: 20px;
@@ -113,11 +104,74 @@ body {
   gap: 10px;
 }
 
-/* Education Section */
-.education-card {
+/* Опыт работы */
+.experience-card {
   grid-column: span 2;
 }
 
+.experience-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin-top: 20px;
+}
+
+.exp-item {
+  background-color: rgba(100, 108, 255, 0.05);
+  border-radius: var(--border-radius);
+  padding: 20px;
+  border-left: 4px solid var(--primary-color);
+  transition: all 0.3s;
+}
+
+.exp-item:hover {
+  background-color: rgba(100, 108, 255, 0.1);
+  transform: translateX(5px);
+}
+
+.exp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+
+.exp-header h3 {
+  margin: 0;
+  font-size: 1.2em;
+  color: var(--primary-color);
+}
+
+.exp-date {
+  font-size: 0.9em;
+  opacity: 0.8;
+  background-color: rgba(100, 108, 255, 0.1);
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.exp-company {
+  font-weight: 500;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.exp-company::before {
+  content: "🏢";
+  font-size: 0.9em;
+}
+
+.exp-desc {
+  font-size: 0.95em;
+  line-height: 1.6;
+  opacity: 0.9;
+  padding-left: 5px;
+  border-left: 2px dotted rgba(100, 108, 255, 0.3);
+}
+
+/* Образование */
 .education-vertical {
   display: flex;
   flex-direction: column;
@@ -168,7 +222,7 @@ body {
 }
 
 .edu-place::before {
-  content: "📍";
+  content: "🎓";
   font-size: 0.9em;
 }
 
@@ -180,7 +234,7 @@ body {
   border-left: 2px dotted rgba(100, 108, 255, 0.3);
 }
 
-/* Common styles for other sections */
+/* Общие стили */
 .tags-container {
   display: flex;
   flex-wrap: wrap;
@@ -222,13 +276,6 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
-}
-
-.social-links {
-  display: flex;
-  gap: 15px;
-  margin-top: 20px;
-  font-size: 1.5em;
 }
 
 .add-btn {
@@ -286,12 +333,13 @@ button:hover {
   .profile-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .profile-header {
     flex-direction: column;
     text-align: center;
   }
-  
+
+  .experience-card,
   .education-card {
     grid-column: span 1;
   }
