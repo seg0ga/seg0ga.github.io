@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Адаптивное резюме</title>
+  <title>Интерактивное резюме</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
@@ -35,6 +35,7 @@
       display: grid;
       grid-template-rows: auto 1fr auto;
       gap: 8px;
+      background-color: white;
     }
 
     .profile-header {
@@ -119,6 +120,8 @@
       position: relative;
       animation: fadeIn 0.5s ease-out;
       transition: var(--transition);
+      padding: 5px;
+      border-radius: 4px;
     }
 
     .experience-item:hover {
@@ -143,6 +146,8 @@
       position: relative;
       animation: fadeIn 0.5s ease-out;
       transition: var(--transition);
+      padding: 5px;
+      border-radius: 4px;
     }
 
     .education-item:hover {
@@ -190,10 +195,13 @@
       font-size: 11px;
       transition: var(--transition);
       animation: fadeIn 0.5s ease-out;
+      padding: 3px;
+      border-radius: 3px;
     }
 
     .contact-item:hover {
       transform: translateX(3px);
+      background-color: rgba(63, 81, 181, 0.05);
     }
 
     /* Кнопки */
@@ -309,6 +317,51 @@
 
     .expanded {
       grid-row: span 2;
+    }
+
+    /* Стили для печати */
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      .a4-page, .a4-page * {
+        visibility: visible;
+      }
+      .a4-page {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 210mm !important;
+        margin: 0 !important;
+        padding: 10mm !important;
+        box-shadow: none !important;
+        background: white;
+      }
+      
+      /* Скрываем ненужные элементы при печати */
+      button, .add-btn, .wave {
+        display: none !important;
+      }
+      
+      /* Улучшаем читаемость текста */
+      [contenteditable="true"] {
+        border: none !important;
+        background: transparent !important;
+        padding: 0 !important;
+      }
+      
+      /* Улучшаем контрастность */
+      .resume-card {
+        background: white !important;
+        box-shadow: none !important;
+        border: 1px solid #eee !important;
+      }
+      
+      .tag {
+        background: #f0f0f0 !important;
+        color: black !important;
+        border: 1px solid #ddd !important;
+      }
     }
   </style>
 </head>
@@ -663,17 +716,25 @@
         document.getElementById('downloadBtn').addEventListener('click', downloadHandler);
       }
 
-      // Скачивание PDF
-      function downloadHandler() {
+      // Скачивание PDF с высоким качеством
+      document.getElementById('downloadBtn').addEventListener('click', function downloadHandler() {
         const element = document.querySelector('.a4-page');
         const opt = {
           margin: 0,
           filename: 'резюме.pdf',
-          image: { type: 'jpeg', quality: 0.98 },
+          image: { 
+            type: 'jpeg', 
+            quality: 1 // Максимальное качество
+          },
           html2canvas: { 
-            scale: 2,
+            scale: 3, // Увеличенный масштаб для четкости
             logging: false,
-            useCORS: true
+            useCORS: true,
+            letterRendering: true, // Улучшает рендеринг текста
+            allowTaint: true,
+            windowWidth: element.scrollWidth,
+            windowHeight: element.scrollHeight,
+            backgroundColor: '#FFFFFF'
           },
           jsPDF: { 
             unit: 'mm',
@@ -682,22 +743,106 @@
           }
         };
 
-        // Скрываем кнопки перед генерацией PDF
+        // Временное увеличение размера для лучшего качества
+        const originalWidth = element.style.width;
+        element.style.width = '210mm';
+        
+        // Скрываем кнопки перед генерацией
         const buttons = element.querySelectorAll('button');
         buttons.forEach(btn => btn.style.display = 'none');
 
+        // Добавляем класс для печати
+        element.classList.add('printing');
+        
         // Добавляем анимацию перед скачиванием
-        element.style.animation = 'fadeOut 0.3s ease';
+        element.style.opacity = '0.9';
         setTimeout(() => {
           html2pdf().set(opt).from(element).save().then(() => {
-            // Возвращаем кнопки после генерации
+            // Возвращаем исходное состояние
             buttons.forEach(btn => btn.style.display = '');
-            element.style.animation = '';
+            element.style.width = originalWidth;
+            element.classList.remove('printing');
+            element.style.opacity = '1';
           });
-        }, 300);
+        }, 100);
+      });
+
+      // Инициализация обработчиков
+      function addExperienceHandler() {
+        const container = document.getElementById('experienceContainer');
+        const card = document.getElementById('experienceCard');
+        const newItem = document.createElement('div');
+        newItem.className = 'experience-item';
+        newItem.setAttribute('contenteditable', 'true');
+        newItem.innerHTML = `
+          <h3>Должность <span>ГГГГ - ГГГГ</span></h3>
+          <p>Компания, Город</p>
+          <p>Обязанности и достижения</p>
+          <div class="wave"></div>
+        `;
+        container.appendChild(newItem);
+        newItem.querySelector('.wave').addEventListener('click', createWaveEffect);
+        checkCardSize(card);
       }
 
-      document.getElementById('downloadBtn').addEventListener('click', downloadHandler);
+      function addSkillHandler() {
+        const container = document.getElementById('skillsContainer');
+        const card = document.getElementById('skillsCard');
+        const newItem = document.createElement('span');
+        newItem.className = 'tag clickable';
+        newItem.setAttribute('contenteditable', 'true');
+        newItem.innerHTML = 'Новый навык<div class="wave"></div>';
+        container.appendChild(newItem);
+        newItem.querySelector('.wave').addEventListener('click', createWaveEffect);
+        checkCardSize(card);
+      }
+
+      function addEducationHandler() {
+        const container = document.getElementById('educationContainer');
+        const card = document.getElementById('educationCard');
+        const newItem = document.createElement('div');
+        newItem.className = 'education-item';
+        newItem.setAttribute('contenteditable', 'true');
+        newItem.innerHTML = `
+          <h3>Степень <span>ГГГГ - ГГГГ</span></h3>
+          <p>Учебное заведение</p>
+          <p>Специализация</p>
+          <div class="wave"></div>
+        `;
+        container.appendChild(newItem);
+        newItem.querySelector('.wave').addEventListener('click', createWaveEffect);
+        checkCardSize(card);
+      }
+
+      function addLanguageHandler() {
+        const container = document.getElementById('languagesContainer');
+        const card = document.getElementById('languagesCard');
+        const newItem = document.createElement('div');
+        newItem.className = 'education-item';
+        newItem.setAttribute('contenteditable', 'true');
+        newItem.innerHTML = `
+          <p>🇺🇸 Язык (уровень)</p>
+          <div class="wave"></div>
+        `;
+        container.appendChild(newItem);
+        newItem.querySelector('.wave').addEventListener('click', createWaveEffect);
+        checkCardSize(card);
+      }
+
+      function addInterestHandler() {
+        const container = document.getElementById('interestsContainer');
+        const card = document.getElementById('interestsCard');
+        const newItem = document.createElement('span');
+        newItem.className = 'tag clickable';
+        newItem.setAttribute('contenteditable', 'true');
+        newItem.innerHTML = 'Новый интерес<div class="wave"></div>';
+        container.appendChild(newItem);
+        newItem.querySelector('.wave').addEventListener('click', createWaveEffect);
+        checkCardSize(card);
+      }
+
+      // Инициализация всех обработчиков
+      restoreEventHandlers();
     });
   </script>
 </body>
