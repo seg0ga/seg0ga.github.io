@@ -3,18 +3,184 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Интерактивное резюме</title>
+  <title>Резюме A4</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --primary-color: #3f51b5;
+      --text-color: #333;
+      --bg-color: #ffffff;
+      --card-bg: #f5f5f5;
+      --border-radius: 8px;
+      --box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', Arial, sans-serif;
+      font-size: 12px;
+      line-height: 1.4;
+      color: var(--text-color);
+      background-color: var(--bg-color);
+    }
+
+    .a4-page {
+      width: 210mm;
+      height: 297mm;
+      margin: 0 auto;
+      padding: 10mm;
+      box-sizing: border-box;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 8px;
+    }
+
+    .profile-header {
+      display: grid;
+      grid-template-columns: 30mm 1fr;
+      gap: 10px;
+      margin-bottom: 5px;
+    }
+
+    .profile-photo {
+      width: 30mm;
+      height: 30mm;
+      border-radius: 50%;
+      overflow: hidden;
+      position: relative;
+      border: 2px solid var(--primary-color);
+    }
+
+    .profile-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .profile-info h1 {
+      margin: 0;
+      font-size: 18px;
+      color: var(--primary-color);
+    }
+
+    .profile-info p {
+      margin: 2px 0 0;
+      font-size: 14px;
+    }
+
+    .resume-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto auto;
+      gap: 8px;
+      height: calc(297mm - 45mm);
+    }
+
+    .resume-card {
+      background-color: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 8px;
+      box-shadow: var(--box-shadow);
+      overflow: hidden;
+    }
+
+    .resume-card h2 {
+      font-size: 14px;
+      margin: 0 0 5px 0;
+      color: var(--primary-color);
+      border-bottom: 1px solid var(--primary-color);
+      padding-bottom: 3px;
+    }
+
+    /* Опыт работы */
+    .experience-item {
+      margin-bottom: 6px;
+    }
+
+    .experience-item h3 {
+      font-size: 12px;
+      margin: 0;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .experience-item p {
+      margin: 2px 0;
+      font-size: 11px;
+    }
+
+    /* Образование */
+    .education-item {
+      margin-bottom: 6px;
+    }
+
+    .education-item h3 {
+      font-size: 12px;
+      margin: 0;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* Навыки и языки */
+    .tags-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .tag {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 2px 6px;
+      border-radius: 10px;
+      font-size: 10px;
+    }
+
+    /* Контакты */
+    .contact-item {
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+    }
+
+    /* Material Wave эффект */
+    .wave {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 50%;
+      transform: scale(0);
+      pointer-events: none;
+      opacity: 1;
+    }
+
+    .wave.active {
+      animation: wave 0.6s ease-out;
+    }
+
+    @keyframes wave {
+      0% { transform: scale(0); opacity: 1; }
+      100% { transform: scale(2); opacity: 0; }
+    }
+
+    .clickable {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-  <div class="profile-container">
+  <div class="a4-page">
     <div class="profile-header">
-      <div class="profile-photo" id="photoUpload">
-        <img id="profileImage" src="https://via.placeholder.com/150" alt="Фото профиля">
-        <div class="upload-overlay">
-          <i class="fas fa-camera"></i>
-        </div>
+      <div class="profile-photo clickable" id="photoUpload">
+        <img id="profileImage" src="https://via.placeholder.com/150" alt="Фото">
         <div class="wave"></div>
         <input type="file" id="photoInput" accept="image/*" style="display: none;">
       </div>
@@ -24,109 +190,142 @@
       </div>
     </div>
 
-    <div class="profile-grid">
-      <!-- Опыт работы -->
-      <div class="profile-card experience-card">
+    <div class="resume-grid">
+      <!-- 1 строка: Опыт работы -->
+      <div class="resume-card">
         <h2><i class="fas fa-briefcase"></i> Опыт работы</h2>
-        <div class="experience-vertical" id="experienceContainer">
-          <div class="exp-item" contenteditable="true">
-            <div class="exp-header">
-              <h3>Старший веб-разработчик</h3>
-              <div class="exp-date">01/2020 - настоящее время</div>
-            </div>
-            <div class="exp-company">ТехноКаб, Москва</div>
-            <div class="exp-desc">Разработка и поддержка веб-приложений. Руководство командой разработчиков. Оптимизация производительности.</div>
-          </div>
-
-          <div class="exp-item" contenteditable="true">
-            <div class="exp-header">
-              <h3>Веб-разработчик</h3>
-              <div class="exp-date">06/2017 - 12/2019</div>
-            </div>
-            <div class="exp-company">ДизайнСтудия, Санкт-Петербург</div>
-            <div class="exp-desc">Создание адаптивных веб-сайтов. Интеграция с CMS. Работа с клиентами.</div>
-          </div>
-
-          <button class="add-btn" id="addExperience"><i class="fas fa-plus"></i> Добавить место работы<div class="wave"></div></button>
+        <div class="experience-item" contenteditable="true">
+          <h3>Старший разработчик <span>2020 - н.в.</span></h3>
+          <p>ТехноКаб, Москва</p>
+          <p>Разработка веб-приложений, руководство командой</p>
+        </div>
+        <div class="experience-item" contenteditable="true">
+          <h3>Веб-разработчик <span>2017 - 2020</span></h3>
+          <p>ДизайнСтудия, СПб</p>
+          <p>Создание адаптивных сайтов, работа с клиентами</p>
         </div>
       </div>
 
-      <!-- Языки -->
-      <div class="profile-card languages-card">
-        <h2><i class="fas fa-language"></i> Языки</h2>
-        <div class="languages-container" id="languagesContainer">
-          <div class="language-item" contenteditable="true">
-            <span class="flag">🇷🇺</span> Русский <span class="level">(Родной)</span>
-          </div>
-          <div class="language-item" contenteditable="true">
-            <span class="flag">🇬🇧</span> Английский <span class="level">(Продвинутый)</span>
-          </div>
-          <button class="add-btn" id="addLanguage"><i class="fas fa-plus"></i> Добавить<div class="wave"></div></button>
-        </div>
-      </div>
-
-      <!-- Навыки -->
-      <div class="profile-card tools-card">
+      <!-- 1 строка: Навыки -->
+      <div class="resume-card">
         <h2><i class="fas fa-tools"></i> Навыки</h2>
-        <div class="tags-container" id="toolsContainer">
+        <div class="tags-container">
           <span class="tag" contenteditable="true">HTML/CSS</span>
           <span class="tag" contenteditable="true">JavaScript</span>
           <span class="tag" contenteditable="true">React</span>
-          <button class="add-btn" id="addTool"><i class="fas fa-plus"></i> Добавить<div class="wave"></div></button>
+          <span class="tag" contenteditable="true">Node.js</span>
+          <span class="tag" contenteditable="true">Git</span>
+          <span class="tag" contenteditable="true">Figma</span>
         </div>
       </div>
 
-      <!-- Образование -->
-      <div class="profile-card education-card">
+      <!-- 2 строка: Образование -->
+      <div class="resume-card">
         <h2><i class="fas fa-graduation-cap"></i> Образование</h2>
-        <div class="education-vertical" id="educationContainer">
-          <div class="edu-item" contenteditable="true">
-            <div class="edu-header">
-              <h3>Магистр компьютерных наук</h3>
-              <div class="edu-date">09/2014 - 06/2018</div>
-            </div>
-            <div class="edu-place">Московский технический университет</div>
-            <div class="edu-desc">Специализация: Веб-технологии. Диплом с отличием.</div>
-          </div>
-
-          <button class="add-btn" id="addEducation"><i class="fas fa-plus"></i> Добавить образование<div class="wave"></div></button>
+        <div class="education-item" contenteditable="true">
+          <h3>Магистр КН <span>2014 - 2018</span></h3>
+          <p>Московский тех. университет</p>
+          <p>Специализация: Веб-технологии</p>
         </div>
       </div>
 
-      <!-- Интересы -->
-      <div class="profile-card interests-card">
+      <!-- 2 строка: Языки -->
+      <div class="resume-card">
+        <h2><i class="fas fa-language"></i> Языки</h2>
+        <div class="education-item" contenteditable="true">
+          <p>🇷🇺 Русский (родной)</p>
+          <p>🇬🇧 Английский (B2)</p>
+        </div>
+      </div>
+
+      <!-- 3 строка: Интересы -->
+      <div class="resume-card">
         <h2><i class="fas fa-heart"></i> Интересы</h2>
-        <div class="tags-container" id="interestsContainer">
+        <div class="tags-container">
           <span class="tag" contenteditable="true">Программирование</span>
           <span class="tag" contenteditable="true">Путешествия</span>
           <span class="tag" contenteditable="true">Фотография</span>
-          <button class="add-btn" id="addInterest"><i class="fas fa-plus"></i> Добавить<div class="wave"></div></button>
         </div>
       </div>
 
-      <!-- Контакты -->
-      <div class="profile-card contacts-card">
+      <!-- 3 строка: Контакты -->
+      <div class="resume-card">
         <h2><i class="fas fa-envelope"></i> Контакты</h2>
-        <div class="contacts-container">
-          <div class="contact-item" contenteditable="true">
-            <i class="fas fa-envelope"></i> ivanov@example.com
-          </div>
-          <div class="contact-item" contenteditable="true">
-            <i class="fas fa-phone"></i> +7 (123) 456-78-90
-          </div>
-          <div class="contact-item" contenteditable="true">
-            <i class="fab fa-github"></i> github.com/username
-          </div>
+        <div class="contact-item" contenteditable="true">
+          <i class="fas fa-phone"></i> +7 (123) 456-78-90
+        </div>
+        <div class="contact-item" contenteditable="true">
+          <i class="fas fa-envelope"></i> ivanov@example.com
+        </div>
+        <div class="contact-item" contenteditable="true">
+          <i class="fab fa-github"></i> github.com/username
         </div>
       </div>
-    </div>
-
-    <div class="controls">
-      <button id="downloadBtn"><i class="fas fa-download"></i> Скачать PDF<div class="wave"></div></button>
     </div>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Material Wave эффект
+      function createWaveEffect(event) {
+        const rect = this.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        
+        const wave = this.querySelector('.wave');
+        if (!wave) return;
+        
+        wave.style.left = `${x}px`;
+        wave.style.top = `${y}px`;
+        
+        wave.classList.remove('active');
+        void wave.offsetWidth;
+        wave.classList.add('active');
+      }
+
+      // Применяем эффект ко всем кликабельным элементам
+      document.querySelectorAll('.clickable, .tag, [contenteditable="true"]').forEach(el => {
+        el.addEventListener('click', createWaveEffect);
+      });
+
+      // Загрузка фото
+      const photoUpload = document.getElementById('photoUpload');
+      const photoInput = document.getElementById('photoInput');
+      const profileImage = document.getElementById('profileImage');
+
+      photoUpload.addEventListener('click', function() {
+        photoInput.click();
+      });
+
+      photoInput.addEventListener('change', function(e) {
+        if (e.target.files && e.target.files[0]) {
+          const reader = new FileReader();
+          reader.onload = function(event) {
+            profileImage.src = event.target.result;
+            localStorage.setItem('profileImage', event.target.result);
+          };
+          reader.readAsDataURL(e.target.files[0]);
+        }
+      });
+
+      // Загрузка сохраненного фото
+      if (localStorage.getItem('profileImage')) {
+        profileImage.src = localStorage.getItem('profileImage');
+      }
+
+      // Сохранение данных
+      const editableElements = document.querySelectorAll('[contenteditable="true"]');
+      editableElements.forEach(el => {
+        el.addEventListener('input', function() {
+          localStorage.setItem('resumeData', document.querySelector('.a4-page').innerHTML);
+        });
+      });
+
+      // Загрузка сохраненных данных
+      if (localStorage.getItem('resumeData')) {
+        document.querySelector('.a4-page').innerHTML = localStorage.getItem('resumeData');
+      }
+    });
+  </script>
 </body>
 </html>
