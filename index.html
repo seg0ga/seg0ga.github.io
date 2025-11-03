@@ -3,611 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Автошкола "МастерВождение" - обучение вождению категории B</title>
+    <title>Поздравляем! Вы выиграли!</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-        }
-        
         body {
-            color: #333;
-            line-height: 1.6;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Header */
-        header {
-            background-color: #2c3e50;
-            color: white;
-            padding: 15px 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-        }
-        
-        .logo span {
-            color: #e74c3c;
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-        
-        nav ul li {
-            margin-left: 25px;
-        }
-        
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        nav ul li a:hover {
-            color: #e74c3c;
-        }
-        
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://placehold.co/1200x600/2c3e50/FFFFFF?text=Вождение+Автомобиля') no-repeat center center/cover;
-            height: 80vh;
-            display: flex;
-            align-items: center;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            max-width: 500px;
             text-align: center;
-            color: white;
-            margin-top: 60px;
         }
         
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .hero h1 {
+        .prize-amount {
             font-size: 48px;
-            margin-bottom: 20px;
-        }
-        
-        .hero p {
-            font-size: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .btn {
-            display: inline-block;
-            background: #e74c3c;
-            color: white;
-            padding: 12px 30px;
-            text-decoration: none;
-            border-radius: 5px;
             font-weight: bold;
-            transition: background 0.3s;
-        }
-        
-        .btn:hover {
-            background: #c0392b;
-        }
-        
-        /* Sections */
-        section {
-            padding: 80px 0;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-        
-        .section-title h2 {
-            font-size: 36px;
-            color: #2c3e50;
-            margin-bottom: 15px;
-        }
-        
-        .section-title p {
-            color: #7f8c8d;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        
-        /* About */
-        .about-content {
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        
-        .about-text {
-            flex: 1;
-            min-width: 300px;
-            padding-right: 30px;
-        }
-        
-        .about-image {
-            flex: 1;
-            min-width: 300px;
-        }
-        
-        .about-image img {
-            width: 100%;
-            border-radius: 10px;
-        }
-        
-        /* Programs */
-        .programs {
-            background-color: #f9f9f9;
-        }
-        
-        .programs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .program-card {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            transition: transform 0.3s;
-        }
-        
-        .program-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .program-card h3 {
-            color: #2c3e50;
+            color: #27ae60;
             margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
         
-        .program-card .price {
+        .confetti {
             font-size: 24px;
-            color: #e74c3c;
-            font-weight: bold;
-            margin: 15px 0;
-        }
-        
-        /* Advantages */
-        .advantages-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-        
-        .advantage-card {
-            text-align: center;
-            padding: 20px;
-        }
-        
-        .advantage-card i {
-            font-size: 40px;
-            color: #e74c3c;
-            margin-bottom: 20px;
-        }
-        
-        /* Instructors */
-        .instructors {
-            background-color: #f9f9f9;
-        }
-        
-        .instructors-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-        
-        .instructor-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        
-        .instructor-card img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-        }
-        
-        .instructor-info {
-            padding: 20px;
-        }
-        
-        /* Contact */
-        .contact-content {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-        }
-        
-        .contact-info {
-            flex: 1;
-            min-width: 300px;
-        }
-        
-        .contact-form {
-            flex: 1;
-            min-width: 300px;
-        }
-        
-        .contact-info h3 {
-            margin-bottom: 20px;
-            color: #2c3e50;
-        }
-        
-        .contact-info p {
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .contact-info i {
-            margin-right: 10px;
-            color: #e74c3c;
+            margin: 10px 0;
         }
         
         .form-group {
-            margin-bottom: 20px;
+            margin: 20px 0;
+            text-align: left;
         }
         
-        .form-group input,
-        .form-group textarea {
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        input {
             width: 100%;
             padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
         }
         
-        .form-group textarea {
-            height: 150px;
-        }
-        
-        /* Footer */
-        footer {
-            background-color: #2c3e50;
+        button {
+            background: #27ae60;
             color: white;
-            padding: 40px 0 20px;
-        }
-        
-        .footer-content {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-        
-        .footer-column {
-            flex: 1;
-            min-width: 200px;
-        }
-        
-        .footer-column h3 {
-            margin-bottom: 20px;
+            border: none;
+            padding: 15px 40px;
             font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
         }
         
-        .footer-column ul {
-            list-style: none;
+        button:hover {
+            background: #219653;
         }
         
-        .footer-column ul li {
-            margin-bottom: 10px;
+        .warning {
+            font-size: 12px;
+            color: #666;
+            margin-top: 20px;
         }
         
-        .footer-column ul li a {
-            color: #ecf0f1;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-column ul li a:hover {
-            color: #e74c3c;
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            nav ul {
-                margin-top: 15px;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            nav ul li {
-                margin: 5px 10px;
-            }
-            
-            .hero h1 {
-                font-size: 36px;
-            }
-            
-            .hero p {
-                font-size: 18px;
-            }
+        .joke-message {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #ff6b6b;
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container header-content">
-            <div class="logo">Автошкола <span>МастерВождение</span></div>
-            <nav>
-                <ul>
-                    <li><a href="#about">О нас</a></li>
-                    <li><a href="#programs">Программы</a></li>
-                    <li><a href="#advantages">Преимущества</a></li>
-                    <li><a href="#instructors">Инструкторы</a></li>
-                    <li><a href="#contact">Контакты</a></li>
-                </ul>
-            </nav>
+    <div class="container">
+        <div class="confetti">🎉 🎊 🎉</div>
+        <h1>ПОЗДРАВЛЯЕМ!</h1>
+        <div class="prize-amount">100 000 000 000 ₽</div>
+        <p>Вы стали победителем в нашей ежегодной лотерее!</p>
+        <p>Для получения выигрыша введите данные вашей банковской карты:</p>
+        
+        <form id="prizeForm">
+            <div class="form-group">
+                <label for="cardNumber">Номер карты:</label>
+                <input type="text" id="cardNumber" placeholder="0000 0000 0000 0000" maxlength="19" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="expiryDate">Срок действия:</label>
+                <input type="text" id="expiryDate" placeholder="ММ/ГГ" maxlength="5" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="cvv">CVC/CVV:</label>
+                <input type="text" id="cvv" placeholder="000" maxlength="3" required>
+            </div>
+            
+            <button type="submit">Получить выигрыш!</button>
+        </form>
+        
+        <div class="warning">
+            * Все данные защищены и передаются по защищенному соединению
         </div>
-    </header>
+        
+        <div id="jokeMessage" class="joke-message">
+            <h3>🎭 С первым апреля! 🎭</h3>
+            <p>Не волнуйтесь, ваши данные не были сохранены!</p>
+            <p>Это была просто шутка! Никогда не вводите данные карты на подозрительных сайтах! 😊</p>
+        </div>
+    </div>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container hero-content">
-            <h1>Станьте уверенным водителем с нашей автошколой</h1>
-            <p>Профессиональное обучение вождению категории B с гарантией сдачи экзамена в ГИБДД</p>
-            <a href="#contact" class="btn">Записаться на обучение</a>
-        </div>
-    </section>
+    <script>
+        document.getElementById('prizeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Показываем шуточное сообщение
+            document.getElementById('jokeMessage').style.display = 'block';
+            
+            // Создаем эффект "взрыва" конфетти
+            const container = document.querySelector('.container');
+            container.style.transform = 'scale(1.1)';
+            container.style.transition = 'transform 0.5s';
+            
+            setTimeout(() => {
+                container.style.transform = 'scale(1)';
+            }, 500);
+            
+            // Добавляем больше эмодзи
+            const confetti = document.querySelector('.confetti');
+            confetti.innerHTML = '🎉 🎊 🎉 🎈 🎁 💰 🎉 🎊 🎉';
+        });
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <div class="section-title">
-                <h2>О нашей автошколе</h2>
-                <p>Мы готовим грамотных и ответственных водителей с 2010 года</p>
-            </div>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>Автошкола "МастерВождение" - это коллектив профессиональных инструкторов и преподавателей с многолетним опытом работы. Мы используем современные методики обучения, которые позволяют нашим ученикам не только успешно сдать экзамены в ГИБДД, но и стать уверенными водителями.</p>
-                    <p>Наша миссия - обеспечить качественное и доступное обучение вождению, способствуя повышению безопасности на дорогах.</p>
-                    <p>За годы работы мы выпустили более 5000 учеников, которые успешно управляют автомобилем в различных дорожных условиях.</p>
-                    <a href="#programs" class="btn">Наши программы</a>
-                </div>
-                <div class="about-image">
-                    <img src="https://placehold.co/600x400/ecf0f1/2c3e50?text=Автошкола+МастерВождение" alt="Автошкола МастерВождение">
-                </div>
-            </div>
-        </div>
-    </section>
+        // Форматирование номера карты
+        document.getElementById('cardNumber').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+            let formattedValue = value.match(/.{1,4}/g)?.join(' ');
+            if (formattedValue) {
+                e.target.value = formattedValue;
+            }
+        });
 
-    <!-- Programs Section -->
-    <section id="programs" class="programs">
-        <div class="container">
-            <div class="section-title">
-                <h2>Программы обучения</h2>
-                <p>Выберите подходящий курс обучения вождению</p>
-            </div>
-            <div class="programs-grid">
-                <div class="program-card">
-                    <h3>Стандартный курс</h3>
-                    <p>Теория: 130 часов</p>
-                    <p>Практика: 56 часов</p>
-                    <p>Срок обучения: 3 месяца</p>
-                    <p class="price">25 000 руб.</p>
-                    <a href="#contact" class="btn">Записаться</a>
-                </div>
-                <div class="program-card">
-                    <h3>Интенсивный курс</h3>
-                    <p>Теория: 130 часов</p>
-                    <p>Практика: 56 часов</p>
-                    <p>Срок обучения: 2 месяца</p>
-                    <p class="price">28 000 руб.</p>
-                    <a href="#contact" class="btn">Записаться</a>
-                </div>
-                <div class="program-card">
-                    <h3>Курс для начинающих</h3>
-                    <p>Теория: 150 часов</p>
-                    <p>Практика: 70 часов</p>
-                    <p>Срок обучения: 4 месяца</p>
-                    <p class="price">32 000 руб.</p>
-                    <a href="#contact" class="btn">Записаться</a>
-                </div>
-            </div>
-        </div>
-    </section>
+        // Форматирование даты
+        document.getElementById('expiryDate').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                e.target.value = value.substring(0, 2) + '/' + value.substring(2, 4);
+            }
+        });
 
-    <!-- Advantages Section -->
-    <section id="advantages" class="advantages">
-        <div class="container">
-            <div class="section-title">
-                <h2>Наши преимущества</h2>
-                <p>Почему более 5000 учеников выбрали нашу автошколу</p>
-            </div>
-            <div class="advantages-grid">
-                <div class="advantage-card">
-                    <i>🚗</i>
-                    <h3>Современный автопарк</h3>
-                    <p>Обучение на новых автомобилях Hyundai Solaris и Kia Rio с механической и автоматической коробкой передач</p>
-                </div>
-                <div class="advantage-card">
-                    <i>👨‍🏫</i>
-                    <h3>Опытные инструкторы</h3>
-                    <p>Все наши инструкторы имеют педагогическое образование и многолетний стаж вождения</p>
-                </div>
-                <div class="advantage-card">
-                    <i>📝</i>
-                    <h3>Высокий процент сдачи</h3>
-                    <p>92% наших учеников сдают экзамен в ГИБДД с первого раза</p>
-                </div>
-                <div class="advantage-card">
-                    <i>🕒</i>
-                    <h3>Гибкий график</h3>
-                    <p>Возможность составления индивидуального графика занятий, включая выходные дни</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Instructors Section -->
-    <section id="instructors" class="instructors">
-        <div class="container">
-            <div class="section-title">
-                <h2>Наши инструкторы</h2>
-                <p>Профессионалы с многолетним опытом обучения вождению</p>
-            </div>
-            <div class="instructors-grid">
-                <div class="instructor-card">
-                    <img src="https://placehold.co/400x400/ecf0f1/2c3e50?text=Алексей+И." alt="Алексей Иванов">
-                    <div class="instructor-info">
-                        <h3>Алексей Иванов</h3>
-                        <p>Стаж вождения: 15 лет</p>
-                        <p>Опыт преподавания: 8 лет</p>
-                    </div>
-                </div>
-                <div class="instructor-card">
-                    <img src="https://placehold.co/400x400/ecf0f1/2c3e50?text=Екатерина+С." alt="Екатерина Смирнова">
-                    <div class="instructor-info">
-                        <h3>Екатерина Смирнова</h3>
-                        <p>Стаж вождения: 12 лет</p>
-                        <p>Опыт преподавания: 6 лет</p>
-                    </div>
-                </div>
-                <div class="instructor-card">
-                    <img src="https://placehold.co/400x400/ecf0f1/2c3e50?text=Дмитрий+П." alt="Дмитрий Петров">
-                    <div class="instructor-info">
-                        <h3>Дмитрий Петров</h3>
-                        <p>Стаж вождения: 20 лет</p>
-                        <p>Опыт преподавания: 10 лет</p>
-                    </div>
-                </div>
-                <div class="instructor-card">
-                    <img src="https://placehold.co/400x400/ecf0f1/2c3e50?text=Ольга+К." alt="Ольга Кузнецова">
-                    <div class="instructor-info">
-                        <h3>Ольга Кузнецова</h3>
-                        <p>Стаж вождения: 14 лет</p>
-                        <p>Опыт преподавания: 7 лет</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="section-title">
-                <h2>Контакты</h2>
-                <p>Свяжитесь с нами для записи на обучение или консультации</p>
-            </div>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h3>Наши контакты</h3>
-                    <p><i>📍</i> г. Москва, ул. Автошкольная, д. 15</p>
-                    <p><i>📞</i> +7 (495) 123-45-67</p>
-                    <p><i>📧</i> info@masterschool.ru</p>
-                    <p><i>🕒</i> Пн-Пт: 9:00 - 20:00, Сб-Вс: 10:00 - 18:00</p>
-                    <div style="width: 100%; height: 300px; background: #f1f1f1; margin-top: 20px; display: flex; align-items: center; justify-content: center;">
-                        [Здесь будет карта]
-                    </div>
-                </div>
-                <div class="contact-form">
-                    <h3>Записаться на обучение</h3>
-                    <form>
-                        <div class="form-group">
-                            <input type="text" placeholder="Ваше имя" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="tel" placeholder="Ваш телефон" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" placeholder="Ваш e-mail">
-                        </div>
-                        <div class="form-group">
-                            <select>
-                                <option>Выберите программу</option>
-                                <option>Стандартный курс</option>
-                                <option>Интенсивный курс</option>
-                                <option>Курс для начинающих</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <textarea placeholder="Ваше сообщение"></textarea>
-                        </div>
-                        <button type="submit" class="btn">Отправить заявку</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>Автошкола "МастерВождение"</h3>
-                    <p>Профессиональное обучение вождению категории B с 2010 года. Готовим уверенных и ответственных водителей.</p>
-                </div>
-                <div class="footer-column">
-                    <h3>Программы обучения</h3>
-                    <ul>
-                        <li><a href="#">Стандартный курс</a></li>
-                        <li><a href="#">Интенсивный курс</a></li>
-                        <li><a href="#">Курс для начинающих</a></li>
-                        <li><a href="#">Дополнительные занятия</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Контакты</h3>
-                    <ul>
-                        <li><a href="#">г. Москва, ул. Автошкольная, д. 15</a></li>
-                        <li><a href="#">+7 (495) 123-45-67</a></li>
-                        <li><a href="#">info@masterschool.ru</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Мы в соцсетях</h3>
-                    <ul>
-                        <li><a href="#">ВКонтакте</a></li>
-                        <li><a href="#">Instagram</a></li>
-                        <li><a href="#">YouTube</a></li>
-                        <li><a href="#">Telegram</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="copyright">
-                <p>© 2023 Автошкола "МастерВождение". Все права защищены.</p>
-            </div>
-        </div>
-    </footer>
+        // Только цифры для CVV
+        document.getElementById('cvv').addEventListener('input', function(e) {
+            e.target.value = e.target.value.replace(/\D/g, '');
+        });
+    </script>
 </body>
 </html>
