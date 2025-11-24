@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Автошкола "Первый руль" - Обучение вождению</title>
+    <title>Автошкола "МастерВождение" - Профессиональное обучение вождению</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Общие стили */
         * {
@@ -13,10 +14,21 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
+        :root {
+            --primary: #3498db;
+            --secondary: #2c3e50;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --text: #333;
+            --text-light: #7f8c8d;
+        }
+        
         body {
             background-color: #f5f5f5;
-            color: #333;
+            color: var(--text);
             line-height: 1.6;
+            overflow-x: hidden;
         }
         
         .container {
@@ -25,12 +37,26 @@
             padding: 0 20px;
         }
         
+        .section-padding {
+            padding: 80px 0;
+        }
+        
         /* Шапка */
         header {
-            background-color: #2c3e50;
+            background-color: var(--secondary);
             color: white;
-            padding: 20px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        header.scrolled {
+            padding: 10px 0;
+            background-color: rgba(44, 62, 80, 0.95);
         }
         
         .header-content {
@@ -47,10 +73,12 @@
         .logo h1 {
             font-size: 24px;
             margin-left: 10px;
+            font-weight: 700;
         }
         
         .logo-icon {
             font-size: 28px;
+            color: var(--primary);
         }
         
         nav ul {
@@ -59,7 +87,7 @@
         }
         
         nav ul li {
-            margin-left: 20px;
+            margin-left: 25px;
         }
         
         nav ul li a {
@@ -67,10 +95,35 @@
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s;
+            position: relative;
+        }
+        
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s;
         }
         
         nav ul li a:hover {
-            color: #3498db;
+            color: var(--primary);
+        }
+        
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
         }
         
         /* Главный баннер */
@@ -78,57 +131,92 @@
             background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1549399542-7e3f8b79c341?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
             color: white;
-            padding: 100px 0;
+            padding: 180px 0 100px;
             text-align: center;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
         }
         
         .hero h2 {
-            font-size: 42px;
+            font-size: 48px;
             margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
         }
         
         .hero p {
-            font-size: 18px;
-            max-width: 700px;
-            margin: 0 auto 30px;
+            font-size: 20px;
+            margin-bottom: 30px;
         }
         
         .btn {
             display: inline-block;
-            background-color: #3498db;
+            background-color: var(--primary);
             color: white;
-            padding: 12px 30px;
-            border-radius: 5px;
+            padding: 14px 35px;
+            border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
+            border: 2px solid var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 16px;
         }
         
         .btn:hover {
-            background-color: #2980b9;
+            background-color: transparent;
+            color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid white;
+            margin-left: 15px;
+        }
+        
+        .btn-secondary:hover {
+            background-color: white;
+            color: var(--secondary);
         }
         
         /* Секции */
-        section {
-            padding: 80px 0;
-        }
-        
         .section-title {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
         }
         
         .section-title h2 {
-            font-size: 32px;
-            color: #2c3e50;
+            font-size: 36px;
+            color: var(--secondary);
             margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
         }
         
         .section-title p {
-            color: #7f8c8d;
+            color: var(--text-light);
             max-width: 700px;
-            margin: 0 auto;
+            margin: 20px auto 0;
+            font-size: 18px;
         }
         
         /* Услуги */
@@ -140,66 +228,129 @@
         
         .service-card {
             background-color: white;
-            border-radius: 8px;
-            padding: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s;
+            border-radius: 10px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.4s;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .service-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transition: all 0.4s;
+            z-index: -1;
+        }
+        
+        .service-card:hover:before {
+            height: 100%;
         }
         
         .service-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-15px);
+            color: white;
+        }
+        
+        .service-card:hover .service-icon,
+        .service-card:hover h3,
+        .service-card:hover p {
+            color: white;
         }
         
         .service-icon {
-            font-size: 40px;
-            color: #3498db;
-            margin-bottom: 20px;
+            font-size: 50px;
+            color: var(--primary);
+            margin-bottom: 25px;
+            transition: all 0.4s;
         }
         
         .service-card h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-            color: #2c3e50;
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--secondary);
+            transition: all 0.4s;
+        }
+        
+        .service-card p {
+            color: var(--text-light);
+            transition: all 0.4s;
         }
         
         /* Инструкторы */
         .instructors {
-            background-color: #f9f9f9;
+            background-color: var(--light);
         }
         
         .instructor-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
         }
         
         .instructor-card {
             background-color: white;
-            border-radius: 8px;
+            border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.4s;
+        }
+        
+        .instructor-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
         }
         
         .instructor-img {
-            height: 200px;
-            background-color: #ddd;
+            height: 300px;
             background-size: cover;
             background-position: center;
+            position: relative;
+        }
+        
+        .instructor-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            padding: 20px;
+            color: white;
+            transform: translateY(10px);
+            opacity: 0;
+            transition: all 0.4s;
+        }
+        
+        .instructor-card:hover .instructor-overlay {
+            transform: translateY(0);
+            opacity: 1;
         }
         
         .instructor-info {
-            padding: 20px;
+            padding: 25px;
         }
         
         .instructor-info h3 {
-            font-size: 20px;
+            font-size: 22px;
             margin-bottom: 5px;
-            color: #2c3e50;
+            color: var(--secondary);
         }
         
         .instructor-info p {
-            color: #7f8c8d;
-            margin-bottom: 10px;
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+        
+        .instructor-rating {
+            color: #f1c40f;
+            margin-bottom: 15px;
         }
         
         /* Этапы обучения */
@@ -208,38 +359,211 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 30px;
+            position: relative;
+        }
+        
+        .steps:before {
+            content: '';
+            position: absolute;
+            top: 50px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary);
+            z-index: 0;
         }
         
         .step {
             flex: 1;
             min-width: 250px;
-            max-width: 300px;
+            max-width: 270px;
             text-align: center;
             padding: 30px 20px;
             background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            position: relative;
+            z-index: 1;
+            transition: all 0.4s;
+        }
+        
+        .step:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
         }
         
         .step-number {
             display: inline-block;
-            width: 50px;
-            height: 50px;
-            line-height: 50px;
-            background-color: #3498db;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            background-color: var(--primary);
             color: white;
             border-radius: 50%;
-            font-size: 20px;
+            font-size: 24px;
             font-weight: bold;
             margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+        
+        .step h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+        
+        /* Галерея */
+        .gallery {
+            background-color: var(--light);
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .gallery-item {
+            height: 250px;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.4s;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        
+        .gallery-overlay i {
+            color: white;
+            font-size: 30px;
+        }
+        
+        /* Отзывы */
+        .testimonials {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+        }
+        
+        .testimonials .section-title h2,
+        .testimonials .section-title p {
+            color: white;
+        }
+        
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .testimonial-slides {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        
+        .testimonial-slide {
+            min-width: 100%;
+            padding: 0 20px;
+        }
+        
+        .testimonial-content {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .testimonial-text {
+            font-size: 18px;
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 15px;
+            border: 3px solid var(--primary);
+        }
+        
+        .author-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        
+        .author-info p {
+            color: rgba(255,255,255,0.7);
+        }
+        
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            margin: 0 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .slider-dot.active {
+            background: var(--primary);
+            transform: scale(1.2);
         }
         
         /* Контакты */
-        .contact {
-            background-color: #2c3e50;
-            color: white;
-        }
-        
         .contact-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -249,33 +573,64 @@
         .contact-info h3 {
             font-size: 24px;
             margin-bottom: 20px;
+            color: var(--secondary);
         }
         
         .contact-info p {
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
         }
         
         .contact-icon {
+            margin-right: 15px;
+            font-size: 20px;
+            color: var(--primary);
+            width: 30px;
+            text-align: center;
+        }
+        
+        .social-links {
+            display: flex;
+            margin-top: 30px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
             margin-right: 10px;
-            font-size: 18px;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
         }
         
         .contact-form input,
-        .contact-form textarea {
+        .contact-form textarea,
+        .contact-form select {
             width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            border: none;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
             border-radius: 5px;
-            background-color: rgba(255,255,255,0.1);
-            color: white;
+            font-size: 16px;
+            transition: all 0.3s;
         }
         
-        .contact-form input::placeholder,
-        .contact-form textarea::placeholder {
-            color: rgba(255,255,255,0.7);
+        .contact-form input:focus,
+        .contact-form textarea:focus,
+        .contact-form select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+            outline: none;
         }
         
         .contact-form textarea {
@@ -285,50 +640,181 @@
         
         /* Подвал */
         footer {
-            background-color: #1a252f;
+            background-color: var(--secondary);
             color: white;
-            padding: 30px 0;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+        
+        .copyright {
             text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.7);
+        }
+        
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 1s ease forwards;
         }
         
         /* Адаптивность */
+        @media (max-width: 992px) {
+            .hero h2 {
+                font-size: 38px;
+            }
+            
+            .steps:before {
+                display: none;
+            }
+        }
+        
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
                 text-align: center;
             }
             
+            nav {
+                width: 100%;
+                margin-top: 15px;
+                display: none;
+            }
+            
+            nav.active {
+                display: block;
+            }
+            
             nav ul {
-                margin-top: 20px;
-                flex-wrap: wrap;
-                justify-content: center;
+                flex-direction: column;
+                width: 100%;
             }
             
             nav ul li {
-                margin: 5px 10px;
+                margin: 0;
+                width: 100%;
+                text-align: center;
+                padding: 10px 0;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                top: 15px;
+                right: 20px;
+            }
+            
+            .hero {
+                padding: 150px 0 80px;
             }
             
             .hero h2 {
                 font-size: 32px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .btn-group {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn-secondary {
+                margin-left: 0;
+            }
+            
+            .section-padding {
+                padding: 60px 0;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h2 {
+                font-size: 28px;
+            }
+            
+            .section-title h2 {
+                font-size: 28px;
+            }
+            
+            .service-card, .instructor-card, .step {
+                padding: 25px 20px;
             }
         }
     </style>
 </head>
 <body>
     <!-- Шапка -->
-    <header>
+    <header id="header">
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <span class="logo-icon">🚗</span>
-                    <h1>Автошкола "Первый руль"</h1>
+                    <span class="logo-icon"><i class="fas fa-car"></i></span>
+                    <h1>МастерВождение</h1>
                 </div>
-                <nav>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <nav id="mainNav">
                     <ul>
+                        <li><a href="#home">Главная</a></li>
                         <li><a href="#about">О нас</a></li>
                         <li><a href="#services">Услуги</a></li>
                         <li><a href="#instructors">Инструкторы</a></li>
-                        <li><a href="#process">Процесс обучения</a></li>
+                        <li><a href="#process">Обучение</a></li>
+                        <li><a href="#gallery">Галерея</a></li>
+                        <li><a href="#testimonials">Отзывы</a></li>
                         <li><a href="#contact">Контакты</a></li>
                     </ul>
                 </nav>
@@ -337,26 +823,50 @@
     </header>
 
     <!-- Главный баннер -->
-    <section class="hero">
+    <section class="hero" id="home">
         <div class="container">
-            <h2>Научим водить автомобиль с нуля</h2>
-            <p>Профессиональное обучение вождению для всех категорий. Опытные инструкторы, современные автомобили и индивидуальный подход к каждому ученику.</p>
-            <a href="#contact" class="btn">Записаться на обучение</a>
+            <div class="hero-content fade-in">
+                <h2>Научим водить автомобиль с нуля</h2>
+                <p>Профессиональное обучение вождению для всех категорий. Опытные инструкторы, современные автомобили и индивидуальный подход к каждому ученику.</p>
+                <div class="btn-group">
+                    <a href="#contact" class="btn">Записаться на обучение</a>
+                    <a href="#about" class="btn btn-secondary">Узнать больше</a>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- О нас -->
-    <section id="about">
+    <section id="about" class="section-padding">
         <div class="container">
             <div class="section-title">
                 <h2>О нашей автошколе</h2>
                 <p>Мы работаем на рынке образовательных услуг более 10 лет и подготовили более 5000 водителей. Наша миссия - сделать дороги безопаснее, обучая грамотных и ответственных водителей.</p>
             </div>
+            <div class="about-content">
+                <div class="services">
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <h3>Лицензия</h3>
+                        <p>Имеем государственную лицензию на образовательную деятельность</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fas fa-car-side"></i></div>
+                        <h3>Автопарк</h3>
+                        <p>Современные автомобили с механической и автоматической КПП</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fas fa-chart-line"></i></div>
+                        <h3>Статистика</h3>
+                        <p>95% наших учеников успешно сдают экзамен с первого раза</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Услуги -->
-    <section id="services">
+    <section id="services" class="section-padding">
         <div class="container">
             <div class="section-title">
                 <h2>Наши услуги</h2>
@@ -364,31 +874,41 @@
             </div>
             <div class="services">
                 <div class="service-card">
-                    <div class="service-icon">📚</div>
+                    <div class="service-icon"><i class="fas fa-book"></i></div>
                     <h3>Теоретический курс</h3>
                     <p>Изучение ПДД, основ устройства автомобиля, оказания первой помощи и психологических аспектов вождения.</p>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon">🚘</div>
+                    <div class="service-icon"><i class="fas fa-car"></i></div>
                     <h3>Практическое вождение</h3>
                     <p>Обучение на современных автомобилях с механической и автоматической коробкой передач в удобное для вас время.</p>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon">🔄</div>
+                    <div class="service-icon"><i class="fas fa-sync-alt"></i></div>
                     <h3>Восстановление навыков</h3>
                     <p>Для тех, кто давно не садился за руль или хочет улучшить свои навыки вождения в городе.</p>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon">🚦</div>
-                    <h3>Подготовка к экзамену в ГИБДД</h3>
+                    <div class="service-icon"><i class="fas fa-traffic-light"></i></div>
+                    <h3>Подготовка к экзамену</h3>
                     <p>Тренировка на экзаменационном маршруте, разбор типичных ошибок и психологическая подготовка.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    <h3>Экспресс-курс</h3>
+                    <p>Интенсивное обучение для тех, кто хочет получить права в кратчайшие сроки.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-user-friends"></i></div>
+                    <h3>Корпоративное обучение</h3>
+                    <p>Специальные программы для организаций по обучению сотрудников.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Инструкторы -->
-    <section id="instructors" class="instructors">
+    <section id="instructors" class="instructors section-padding">
         <div class="container">
             <div class="section-title">
                 <h2>Наши инструкторы</h2>
@@ -396,27 +916,63 @@
             </div>
             <div class="instructor-cards">
                 <div class="instructor-card">
-                    <div class="instructor-img" style="background-color: #95a5a6;"></div>
+                    <div class="instructor-img" style="background-image: url('https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80');">
+                        <div class="instructor-overlay">
+                            <p>Специализация: подготовка с нуля</p>
+                            <p>Стаж: 15 лет</p>
+                        </div>
+                    </div>
                     <div class="instructor-info">
                         <h3>Александр Петров</h3>
-                        <p>Опыт вождения: 15 лет</p>
-                        <p>Стаж преподавания: 8 лет</p>
+                        <p>Старший инструктор</p>
+                        <div class="instructor-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>Обучил более 800 учеников. Специализируется на подготовке начинающих водителей.</p>
                     </div>
                 </div>
                 <div class="instructor-card">
-                    <div class="instructor-img" style="background-color: #95a5a6;"></div>
+                    <div class="instructor-img" style="background-image: url('https://images.unsplash.com/photo-1582750433449-648ed127bb54?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80');">
+                        <div class="instructor-overlay">
+                            <p>Специализация: восстановление навыков</p>
+                            <p>Стаж: 12 лет</p>
+                        </div>
+                    </div>
                     <div class="instructor-info">
                         <h3>Мария Иванова</h3>
-                        <p>Опыт вождения: 12 лет</p>
-                        <p>Стаж преподавания: 6 лет</p>
+                        <p>Инструктор высшей категории</p>
+                        <div class="instructor-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <p>Эксперт по работе с учениками, которые давно не садились за руль. Терпелива и внимательна.</p>
                     </div>
                 </div>
                 <div class="instructor-card">
-                    <div class="instructor-img" style="background-color: #95a5a6;"></div>
+                    <div class="instructor-img" style="background-image: url('https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1355&q=80');">
+                        <div class="instructor-overlay">
+                            <p>Специализация: экзаменационная подготовка</p>
+                            <p>Стаж: 20 лет</p>
+                        </div>
+                    </div>
                     <div class="instructor-info">
                         <h3>Дмитрий Сидоров</h3>
-                        <p>Опыт вождения: 20 лет</p>
-                        <p>Стаж преподавания: 10 лет</p>
+                        <p>Главный инструктор</p>
+                        <div class="instructor-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>Бывший экзаменатор ГИБДД. Знает все тонкости экзамена и подготовит вас к успешной сдаче.</p>
                     </div>
                 </div>
             </div>
@@ -424,7 +980,7 @@
     </section>
 
     <!-- Процесс обучения -->
-    <section id="process">
+    <section id="process" class="section-padding">
         <div class="container">
             <div class="section-title">
                 <h2>Процесс обучения</h2>
@@ -455,8 +1011,123 @@
         </div>
     </section>
 
+    <!-- Галерея -->
+    <section id="gallery" class="gallery section-padding">
+        <div class="container">
+            <div class="section-title">
+                <h2>Галерея</h2>
+                <p>Наши автомобили, классы и ученики</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Обучение вождению">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1563720223485-194d6e5ad7e6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Автомобили автошколы">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Учебный класс">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1551524164-6ca5e3aa1c04?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Практическое вождение">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1599159348282-0d58e27796c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Автодром">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Инструктаж">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Отзывы -->
+    <section id="testimonials" class="testimonials section-padding">
+        <div class="container">
+            <div class="section-title">
+                <h2>Отзывы учеников</h2>
+                <p>Что говорят наши выпускники</p>
+            </div>
+            <div class="testimonial-slider">
+                <div class="testimonial-slides" id="testimonialSlides">
+                    <div class="testimonial-slide">
+                        <div class="testimonial-content">
+                            <div class="testimonial-text">
+                                "Очень благодарен автошколе 'МастерВождение' за качественное обучение. Особенно хочу отметить инструктора Александра - его терпение и профессионализм помогли мне преодолеть страх перед вождением. Сдал экзамен с первого раза!"
+                            </div>
+                            <div class="testimonial-author">
+                                <div class="author-avatar">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Андрей">
+                                </div>
+                                <div class="author-info">
+                                    <h4>Андрей Смирнов</h4>
+                                    <p>Выпускник 2023 года</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-slide">
+                        <div class="testimonial-content">
+                            <div class="testimonial-text">
+                                "После 10-летнего перерыва решила снова сесть за руль. Обратилась в 'МастерВождение' для восстановления навыков. Мария - прекрасный инструктор, которая помогла мне вернуть уверенность на дороге. Теперь езжу на работу на машине каждый день!"
+                            </div>
+                            <div class="testimonial-author">
+                                <div class="author-avatar">
+                                    <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Елена">
+                                </div>
+                                <div class="author-info">
+                                    <h4>Елена Ковалева</h4>
+                                    <p>Выпускница 2023 года</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-slide">
+                        <div class="testimonial-content">
+                            <div class="testimonial-text">
+                                "Выбирал автошколу по отзывам и не ошибся. Теория преподается интересно и доступно, а практические занятия проходят на современных автомобилях. Дмитрий отлично подготовил к экзамену в ГИБДД, объяснил все нюансы. Рекомендую!"
+                            </div>
+                            <div class="testimonial-author">
+                                <div class="author-avatar">
+                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Иван">
+                                </div>
+                                <div class="author-info">
+                                    <h4>Иван Петров</h4>
+                                    <p>Выпускник 2022 года</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider-controls">
+                    <div class="slider-dot active" data-slide="0"></div>
+                    <div class="slider-dot" data-slide="1"></div>
+                    <div class="slider-dot" data-slide="2"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Контакты -->
-    <section id="contact" class="contact">
+    <section id="contact" class="section-padding">
         <div class="container">
             <div class="section-title">
                 <h2>Контакты</h2>
@@ -465,17 +1136,31 @@
             <div class="contact-content">
                 <div class="contact-info">
                     <h3>Наши контакты</h3>
-                    <p><span class="contact-icon">📍</span> г. Москва, ул. Автошкольная, д. 15</p>
-                    <p><span class="contact-icon">📞</span> +7 (495) 123-45-67</p>
-                    <p><span class="contact-icon">✉️</span> info@pervyi-rul.ru</p>
-                    <p><span class="contact-icon">🕒</span> Пн-Пт: 9:00-21:00, Сб-Вс: 10:00-18:00</p>
+                    <p><span class="contact-icon"><i class="fas fa-map-marker-alt"></i></span> г. Москва, ул. Автошкольная, д. 15</p>
+                    <p><span class="contact-icon"><i class="fas fa-phone"></i></span> +7 (495) 123-45-67</p>
+                    <p><span class="contact-icon"><i class="fas fa-envelope"></i></span> info@mastervozhdenie.ru</p>
+                    <p><span class="contact-icon"><i class="fas fa-clock"></i></span> Пн-Пт: 9:00-21:00, Сб-Вс: 10:00-18:00</p>
+                    
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
                 </div>
                 <div class="contact-form">
                     <h3>Оставьте заявку</h3>
                     <form id="applicationForm">
                         <input type="text" placeholder="Ваше имя" required>
                         <input type="tel" placeholder="Ваш телефон" required>
-                        <textarea placeholder="Сообщение"></textarea>
+                        <select>
+                            <option value="" disabled selected>Выберите курс</option>
+                            <option value="beginner">Обучение с нуля</option>
+                            <option value="restore">Восстановление навыков</option>
+                            <option value="express">Экспресс-курс</option>
+                            <option value="corporate">Корпоративное обучение</option>
+                        </select>
+                        <textarea placeholder="Дополнительная информация"></textarea>
                         <button type="submit" class="btn">Отправить заявку</button>
                     </form>
                 </div>
@@ -486,32 +1171,147 @@
     <!-- Подвал -->
     <footer>
         <div class="container">
-            <p>© 2023 Автошкола "Первый руль". Все права защищены.</p>
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Автошкола "МастерВождение"</h3>
+                    <p>Профессиональное обучение вождению с 2010 года. Мы готовим ответственных и грамотных водителей.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Наши услуги</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Обучение с нуля</a></li>
+                        <li><a href="#">Восстановление навыков</a></li>
+                        <li><a href="#">Экспресс-курс</a></li>
+                        <li><a href="#">Корпоративное обучение</a></li>
+                        <li><a href="#">Подготовка к экзамену</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Полезные ссылки</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#">Инструкторы</a></li>
+                        <li><a href="#">Отзывы</a></li>
+                        <li><a href="#">Блог</a></li>
+                        <li><a href="#">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Москва, ул. Автошкольная, 15</a></li>
+                        <li><a href="#"><i class="fas fa-phone"></i> +7 (495) 123-45-67</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> info@mastervozhdenie.ru</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Автошкола "МастерВождение". Все права защищены.</p>
+            </div>
         </div>
     </footer>
 
     <script>
-        // Простая обработка формы
+        // Мобильное меню
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = mainNav.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Плавная прокрутка к якорям
+        document.querySelectorAll('nav a, .hero a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#home') {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                } else {
+                    const targetElement = document.querySelector(targetId);
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+                
+                // Закрываем мобильное меню после клика
+                if (mainNav.classList.contains('active')) {
+                    mainNav.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+        });
+        
+        // Изменение шапки при скролле
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Слайдер отзывов
+        const testimonialSlides = document.getElementById('testimonialSlides');
+        const dots = document.querySelectorAll('.slider-dot');
+        let currentSlide = 0;
+        
+        function showSlide(index) {
+            testimonialSlides.style.transform = `translateX(-${index * 100}%)`;
+            
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[index].classList.add('active');
+            
+            currentSlide = index;
+        }
+        
+        dots.forEach(dot => {
+            dot.addEventListener('click', function() {
+                const slideIndex = parseInt(this.getAttribute('data-slide'));
+                showSlide(slideIndex);
+            });
+        });
+        
+        // Автоматическая смена слайдов
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % dots.length;
+            showSlide(currentSlide);
+        }, 5000);
+        
+        // Обработка формы
         document.getElementById('applicationForm').addEventListener('submit', function(e) {
             e.preventDefault();
             alert('Спасибо за вашу заявку! Мы свяжемся с вами в ближайшее время.');
             this.reset();
         });
         
-        // Плавная прокрутка к якорям
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
+        // Анимация появления элементов при скролле
+        const fadeElements = document.querySelectorAll('.service-card, .instructor-card, .step, .gallery-item');
+        
+        const fadeInOnScroll = () => {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
                 
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80,
-                    behavior: 'smooth'
-                });
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('fade-in');
+                }
             });
-        });
+        };
+        
+        window.addEventListener('scroll', fadeInOnScroll);
+        // Инициализация при загрузке страницы
+        fadeInOnScroll();
     </script>
 </body>
 </html>
